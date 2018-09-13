@@ -11,7 +11,7 @@ class Drive:
 	# If modifying these scopes, delete the file token.json.
 	SCOPES = 'https://www.googleapis.com/auth/drive'
 
-	def upload_download(self):
+	def upload_download(self, instance):
 		"""Shows basic usage of the Drive v3 API.
 		Prints the names and ids of the first 10 files the user has access to.
 		"""
@@ -23,16 +23,12 @@ class Drive:
 		service = build('drive', 'v3', http=creds.authorize(Http()))
 
 		# 上傳成 Google 文件檔，讓 Google 雲端硬碟自動辨識文字
-		CO2_sorted_file = self.get_file_name('input/CO2')
-		PM25_sorted_file = self.get_file_name('input/PM25')
-		CO2_res_list = [self.upload(service, 'CO2', '{}.jpg'.format(item)) for item in CO2_sorted_file]
-		PM25_res_list = [self.upload(service, 'PM25', '{}.jpg'.format(item)) for item in PM25_sorted_file]
+		instance_sorted_file = self.get_file_name('crop/{}'.format(instance))
+		instance_res_list = [self.upload(service, instance, '{}.jpg'.format(item)) for item in instance_sorted_file]
 
 		# 下載辨識結果，儲存為文字檔案
-		for index, item in enumerate(CO2_res_list):
-			self.download(service, 'CO2', item, index)
-		for index, item in enumerate(PM25_res_list):
-			self.download(service, 'PM25', item, index)
+		for index, item in enumerate(instance_res_list):
+			self.download(service, instance, item, index)
 
 	def get_file_name(self, dir):
 		all_file = os.listdir(dir)
@@ -46,7 +42,7 @@ class Drive:
 				'name': dir+'-'+imgfile,
 				'mimeType': mime
 			},
-			media_body=MediaFileUpload(('input/{}/'.format(dir)+imgfile), mimetype=mime, resumable=True)
+			media_body=MediaFileUpload(('crop/{}/'.format(dir)+imgfile), mimetype=mime, resumable=True)
 		).execute()
 
 		return res 
