@@ -18,7 +18,10 @@ class Analysis:
             label.append(t)
 
         self.plotData(plt, label, instance, 'Time(s)', 'ppm')
+        plt.savefig('output/{}/{}.png'.format(instance, instance))
         plt.show()
+        
+
 
     def get_file_name(self, dir):
         all_file = os.listdir('output/{}'.format(dir))
@@ -26,8 +29,11 @@ class Analysis:
         return s
     
     def check_digit(self, str):
-        i = [int(s) for s in str.split() if s.isdigit()]
-        return i[0]
+        num = ''
+        for i in str:
+            if i.isdigit():
+                num += i
+        return num
 
     def get_data(self, dir, name):
         total = []

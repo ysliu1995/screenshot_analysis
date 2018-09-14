@@ -5,11 +5,13 @@ import data_processing
 
 class Screenshot:
 
-    def get_crop(self, video, time_shot, instance, position):
-        vc = cv2.VideoCapture(video) 
+    def get_crop(self, path, time_shot, instance, position):
+        path = path.split('/')[-1]
+        vc = cv2.VideoCapture(path) 
 
         fps = vc.get(cv2.CAP_PROP_FPS)      # OpenCV2 version 2 used "CV_CAP_PROP_FPS"
         frameCount = int(vc.get(cv2.CAP_PROP_FRAME_COUNT))
+        print(fps, frameCount)
         duration = frameCount/fps
 
 
