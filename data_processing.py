@@ -17,9 +17,10 @@ class Analysis:
             t = tuple([(index+1)*60,int(num)])
             label.append(t)
 
-        self.plotData(plt, label, instance, 'Time(s)', 'ppm')
+        self.plotData(plt, label, instance)
+        instance_df[0].to_csv('output/{}/data.csv'.format(instance), index = 0)
         plt.savefig('output/{}/{}.png'.format(instance, instance))
-        plt.show()
+        # plt.show()
         
 
 
@@ -49,10 +50,8 @@ class Analysis:
         df = pd.DataFrame(total)
         return df
 
-    def plotData(self, plt, data, title , xl, yl):
+    def plotData(self, plt, data, title):
         x = [p[0] for p in data]
         y = [p[1] for p in data]
         plt.plot(x, y, '-o')
         plt.title(title)
-        plt.xlabel(xl)
-        plt.ylabel(yl)

@@ -11,7 +11,6 @@ class Screenshot:
 
         fps = vc.get(cv2.CAP_PROP_FPS)      # OpenCV2 version 2 used "CV_CAP_PROP_FPS"
         frameCount = int(vc.get(cv2.CAP_PROP_FRAME_COUNT))
-        print(fps, frameCount)
         duration = frameCount/fps
 
 
@@ -26,7 +25,7 @@ class Screenshot:
         while rval:   
             rval, frame = vc.read()
             if c % shot == 0:
-                sec = int(c/1800)
+                sec = int(c/(fps*time_shot))
                 a = list(position[0])
                 b = list(position[1])
                 position = [a ,b]

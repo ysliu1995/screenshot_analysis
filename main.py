@@ -33,7 +33,7 @@ class App:
             if not os.path.isdir('output/{}'.format(item)):
                 os.mkdir('output/{}'.format(item))
 
-            flow_1.get_crop(self.fname, 60, item, self.pos_dict[item])
+            flow_1.get_crop(self.fname, 30, item, self.pos_dict[item])
             flow_2.upload_download(item)
             flow_3.get_figure(item)
 
