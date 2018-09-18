@@ -14,11 +14,11 @@ class Analysis:
 
         label = []
         for index , num in enumerate(instance_df.values):
-            t = tuple([(index+1)*60,int(num)])
+            t = tuple([(index+1)*30,int(num)])
             label.append(t)
 
         self.plotData(plt, label, instance)
-        instance_df[0].to_csv('output/{}/data.csv'.format(instance), index = 0)
+        instance_df[0].to_csv('output/{}/{}.csv'.format(instance, instance), index = 0)
         plt.savefig('output/{}/{}.png'.format(instance, instance))
         # plt.show()
         
